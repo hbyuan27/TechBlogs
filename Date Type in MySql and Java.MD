@@ -54,3 +54,15 @@ Calendar中的几个注意事项：
 ### java.util.GregorianCalendar
 GregorianCalendar 是 Calendar 的一个具体子类，提供了世界上大多数国家使用的标准日历系统。
 GregorianCalendar 是一种混合日历，在单一间断性的支持下同时支持儒略历和格里高利历系统，在默认情况下，它对应格里高利日历创立时的格里高利历日期（某些国家是在 1582 年 10 月 15 日创立，在其他国家要晚一些）。可由调用方通过调用 setGregorianChange() 来更改起始日期。
+
+## JPA中@Temporal(TemporalType.XXXX) - Mapping Java.util.Date (or Calendar) with Database
+@Temporal只能用来注解 java.util.Date 和 java.util.Calendar类型. 例如:
+````
+@Temporal(TemporalType.DATE)
+@Column(name = "START_DATE")
+private Date startDate;
+````
+因为Java的Date和Calendar存储完整时间戳, 但数据库, 例如MySql存储时间类型和Java不尽相同, 通过@Temporal可以使之匹配.
+- TemporalType.DATE - 使用YYYY-MM-DD格式, 如果数据库是MySql, 则对于MySql.Date类型
+- TemporalType.TIME - 使用HH:MM:SS格式
+- TemporalType.TIME - 使用YYYY-MM-DD HH:MM:SS格式
